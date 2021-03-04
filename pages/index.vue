@@ -1,47 +1,38 @@
 <template>
-  <div class="container">
-    <div>
+  <div>
+    <div class="header">
       <Logo />
       <h1 class="title">livros</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+    </div>
+    <div class="contest">
+      {{ info }}
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      info: null,
+    }
+  },
+  mounted() {
+    axios
+      .get(
+        'https://www.googleapis.com/books/v1/volumes?q=evolution+inauthor:darwin&key=suaChaveDaAPI'
+      )
+      .then((response) => (this.info = response))
+  },
+}
 </script>
 
 <style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-@apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.header {
   text-align: center;
+  width: 50%;
 }
 
 .title {
@@ -49,20 +40,8 @@ export default {}
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
-  font-size: 100px;
+  font-size: 30px;
   color: #35495e;
   letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>

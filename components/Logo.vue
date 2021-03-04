@@ -25,6 +25,7 @@
 .NuxtLogo {
   animation: 1s appear;
   margin: auto;
+  width: 30%;
 }
 
 @keyframes appear {
